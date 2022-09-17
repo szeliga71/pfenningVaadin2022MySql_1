@@ -1,9 +1,11 @@
 package com.example.pfenningvaadin2022mysql_1.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -22,8 +24,14 @@ public class Fahrer {
     private String vorname;
     private String sprache;
 
-    @OneToMany  //(cascade = CascadeType.REFRESH)
+
+
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="fahrer_id",updatable = false,insertable = false)
     private List<ArbeitTag>arbeitTages;
 
+    @Override
+    public String toString() {
+        return name ;
+    }
 }

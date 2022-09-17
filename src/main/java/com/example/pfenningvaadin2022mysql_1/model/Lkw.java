@@ -18,6 +18,6 @@ public class Lkw {
 
     @Id
     private String kenz;
-    private String rewe_nr;
+    private String nr_rewe;
     private String marke;
 }

@@ -19,13 +19,13 @@ public class FahrerController {
 
     @GetMapping("")
     public List<Fahrer> getAllFahrer() {
-        return fahrerService.getAllFahrers();
+        return fahrerService.getAllFahrer();
     }
 
-    @GetMapping("/name/{name}")
+   /* @GetMapping("/name/{name}")
     public List<Fahrer> getFahrerByName(@PathVariable String name) {
         return fahrerService.getFahrerByName(name);
-    }
+    }*/
 
     @GetMapping("{id}")
     public Fahrer getFahrerByIdPf(@PathVariable long id) {
@@ -33,17 +33,17 @@ public class FahrerController {
 
     }
 
-@PostMapping("add")
+/*@PostMapping("add")
     public Fahrer addFahrer(@RequestBody Fahrer fahrer){
        return fahrerService.addFahrer(fahrer);
-    }
+    }*/
 
 
-   @GetMapping("/id_pf/{id_pf}")
+   /*@GetMapping("/id_pf/{id_pf}")
     public List<Fahrer> getFahrerByIdPf(@PathVariable String id_pf) {
         return fahrerService.getFahrerByIdPf(id_pf);
 
-    }
+    }*/
 
     @DeleteMapping("deleteFahrer/{id}")
     public void deleteFahrerById(@PathVariable long id){

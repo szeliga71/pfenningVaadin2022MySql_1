@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -18,9 +19,9 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private LocalDateTime abfahrtlager;
-    private LocalDateTime ankunftlager;
-    private long arbeit_tag_id;
+    private LocalTime abfahrtlager;
+    private LocalTime ankunftlager;
+    //private long arbeit_tag_id;
     private String lkw_kenz;
     private int tour_kilometer;
     private String tour_nr;

@@ -1,6 +1,7 @@
 package com.example.pfenningvaadin2022mysql_1.controller;
 
 import com.example.pfenningvaadin2022mysql_1.model.ArbeitTag;
+import com.example.pfenningvaadin2022mysql_1.model.Fahrer;
 import com.example.pfenningvaadin2022mysql_1.service.ArbeitTagService;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,15 @@ public class ArbeitTagController {
     private final ArbeitTagService arbeitTagService;
 
 
-    @GetMapping("arbeitTages")
+   /* @GetMapping("arbeitTages")
     public List<ArbeitTag>getAllArbeitTages(){
         return arbeitTagService.findAllArbeitTages();
+    }*/
+
+   // @GetMapping("fahrerName")
+    //public List<Fahrer>fFF(){
+       // return arbeitTagService.fFF();
     }
 
 
-}
+
