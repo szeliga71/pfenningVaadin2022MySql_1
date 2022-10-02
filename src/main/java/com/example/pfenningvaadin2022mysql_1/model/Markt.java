@@ -17,5 +17,10 @@ public class Markt {
     @Id
     private String id;
     private String adres;
+
+    @Override
+    public String toString() {
+        return id ;
+    }
 }
 

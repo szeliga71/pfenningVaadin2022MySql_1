@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LkwRepository extends JpaRepository<Lkw,Long> {
+public interface LkwRepository extends JpaRepository<Lkw,String> {
 
     @Query("select l from Lkw l " +
             "where lower(l.kenz) like lower(concat('%', :searchTerm, '%')) " )

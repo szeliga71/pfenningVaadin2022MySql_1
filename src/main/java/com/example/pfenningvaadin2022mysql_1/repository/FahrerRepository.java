@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface FahrerRepository extends JpaRepository<Fahrer,Long>{
+public interface FahrerRepository extends JpaRepository<Fahrer,String>{
 
 
    @Query("select f from Fahrer f " +
@@ -18,13 +18,11 @@ public interface FahrerRepository extends JpaRepository<Fahrer,Long>{
            "or lower(f.vorname) like lower(concat('%', :searchTerm, '%'))")
    List<Fahrer> search(@Param("searchTerm") String searchTerm);
 
-/*@Query("select f from Fahrer f where name = ?1")
-   List<Fahrer> findByName(String name);
+ /*@Query("Delete from Fahrer f where f.name = :name")
+   void deleteById(@Param("name")String name);*/
 
-   @Query("select f from Fahrer f where id_pf = ?1")
-   List<Fahrer> findByid_pf(String id_pf);*/
-
-
+  /* @Query("select f from Fahrer f")
+List<Fahrer>findAll();*/
 
 
 

@@ -75,11 +75,9 @@ public class MainLayout extends AppLayout {
         listLink4.setHighlightCondition(HighlightConditions.sameLocation());
 
 
-        RouterLink listLink6 = new RouterLink("Stopp Form", StoppForm.class);
-        listLink6.setHighlightCondition(HighlightConditions.sameLocation());
 
-        RouterLink listLink7 = new RouterLink("Tour Form", TourForm.class);
-        listLink7.setHighlightCondition(HighlightConditions.sameLocation());
+
+
 
 
 
@@ -93,8 +91,12 @@ public class MainLayout extends AppLayout {
 
         // RouterLink listLink11 = new RouterLink("Fahrer Form", FahrerForm.class);
         //listLink1.setHighlightCondition(HighlightConditions.sameLocation());
+
+
+
         RouterLink listLink1 = new RouterLink("Fahrer List", FahrerList.class);
         listLink1.setHighlightCondition(HighlightConditions.sameLocation());
+
 
         //RouterLink listLink0 = new RouterLink("Arbeit Tag List", ArbeitTagList.class);
         //listLink0.setHighlightCondition(HighlightConditions.sameLocation());
@@ -107,11 +109,17 @@ public class MainLayout extends AppLayout {
          RouterLink listLink3 = new RouterLink("Lkw List ", LkwList.class);
         listLink3.setHighlightCondition(HighlightConditions.sameLocation());
 
+        RouterLink listLink7 = new RouterLink("Tour List", TourList.class);
+        listLink7.setHighlightCondition(HighlightConditions.sameLocation());
+
         RouterLink listLinkT = new RouterLink("Tlo", Tlo.class);
         listLinkT.setHighlightCondition(HighlightConditions.sameLocation());
 
+        RouterLink listLink6 = new RouterLink("Stopp List", StoppList.class);
+        listLink6.setHighlightCondition(HighlightConditions.sameLocation());
+
         //addToDrawer(new VerticalLayout(listLink0,listLink10,listLink1,/*listLink11*/listLink2,listLink3 ,listLink4,listLink5,listLink6,listLink7/*listLink8listLink12*/,listLinkT
-        addToDrawer(new VerticalLayout(listLink1,listLink0,listLink4,listLink3,
+        addToDrawer(new VerticalLayout(listLink0,listLink1,listLink4,listLink3,listLink7,listLink6,
                 listLinkT));
 
        /* addToDrawer(new VerticalLayout(

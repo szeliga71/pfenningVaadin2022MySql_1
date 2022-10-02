@@ -8,14 +8,21 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
+
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.List;
 
 
 public class ArbeitTagForm extends FormLayout {
@@ -23,18 +30,26 @@ public class ArbeitTagForm extends FormLayout {
 
     private ArbeitTag arbeitTag;
 
-    TextField id = new TextField("id");
-    TextField fahrer_id = new TextField("fahrer id");
+    //TextField id = new TextField("id");
+
+    ComboBox<Fahrer> fahrer_name =new ComboBox("fahrer_name");
+    //TextField fahrer_id = new TextField("fahrer id");
 
 
     DatePicker arbeitbegin_date = new DatePicker("arbeitbegin");
-    TextField arbeitbegin_zeit = new TextField("arbeitbegin");
-    TextField arbeitende_zeit = new TextField("arbeitende");
+    TimePicker arbeitbegin_zeit = new TimePicker();
+    TimePicker arbeitende_zeit = new TimePicker();
+
+    //TextField arbeitbegin_zeit = new TextField("arbeitbegin");
+    //TextField arbeitende_zeit = new TextField("arbeitende");
     TextField kilometer = new TextField("kilometer");
+
     TextField kilometer_rewe = new TextField(" kilometer rewe");
-    TextField fahrerbruch = new TextField("fahrerbruch");
-    TextField unfall = new TextField("unfall");
-    TextField pause = new TextField("pause");
+    Select<String> fahrerbruch = new Select<>();//("fahrerbruch");
+    Select<String> unfall = new Select<>();//("unfall");
+    Select<String> pause = new Select<>();//("pause");
+
+    //ComboBox fahrer_name =new ComboBox("fahrer_name");
 
     //ComboBox<Status> status = new ComboBox<>("Status");
     //ComboBox<Company> company = new ComboBox<>("Company");
@@ -47,19 +62,38 @@ public class ArbeitTagForm extends FormLayout {
 
    Binder<ArbeitTag> binder = new BeanValidationBinder<>(ArbeitTag.class);
 
-    public ArbeitTagForm() {
+    public ArbeitTagForm(List<Fahrer>fahrerList) {
         addClassName("arbeitTag-form");
         binder.bindInstanceFields(this);
 
 
-        //company.setItems(companies);
+        fahrer_name.setItems(fahrerList);
+        fahrer_name.setItemLabelGenerator(Fahrer::getName);
+
+        arbeitbegin_zeit.setLabel("arbeitbeginn zeit");
+        arbeitbegin_zeit.setStep(Duration.ofMinutes(15));
+
+        arbeitende_zeit.setLabel("arbeitende zeit");
+        arbeitende_zeit.setStep(Duration.ofMinutes(15));
+        kilometer.setPlaceholder("kilometer");
+
+        kilometer_rewe.setPlaceholder("kilometer rewe");
+        fahrerbruch.setLabel("fahrerbruch");
+        fahrerbruch.setItems("nein","ja");
+        fahrerbruch.setPlaceholder("fahrerbruch");
+        unfall.setLabel("unfall");
+        unfall.setItems("nein","ja");
+        unfall.setPlaceholder("unfall");
+        pause.setLabel("pause");
+        pause.setItems("0","15","45","60","90");
+        pause.setPlaceholder("pause");
+
         //company.setItemLabelGenerator(Company::getName);
         //status.setItems(statuses);
         //status.setItemLabelGenerator(Status::getName);
 
 
-        add(//id,
-                fahrer_id,
+        add(fahrer_name,
                 arbeitbegin_date,
                 arbeitbegin_zeit,
                 arbeitende_zeit,

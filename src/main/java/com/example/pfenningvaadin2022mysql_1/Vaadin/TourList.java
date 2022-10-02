@@ -1,7 +1,11 @@
 package com.example.pfenningvaadin2022mysql_1.Vaadin;
 
 import com.example.pfenningvaadin2022mysql_1.model.Fahrer;
+import com.example.pfenningvaadin2022mysql_1.model.Stopp;
+import com.example.pfenningvaadin2022mysql_1.model.Tour;
 import com.example.pfenningvaadin2022mysql_1.service.FahrerService;
+import com.example.pfenningvaadin2022mysql_1.service.LkwService;
+import com.example.pfenningvaadin2022mysql_1.service.TourService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -12,22 +16,29 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-public class TourList {
-}
-/*@Route(layout = MainLayout.class)
-@PageTitle("Fahrer | Vaadin Pfenning")
-public class FahrerList extends VerticalLayout {
-    Grid<Fahrer> grid = new Grid<>(Fahrer.class);
-    TextField filterText = new TextField();
-    FahrerService fahrerService;
-    FahrerForm fahrerForm;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.time.LocalTime;
+import java.util.List;
 
-    public FahrerList(FahrerService fahrerService) {
-        this.fahrerService = fahrerService;
-        addClassName("Fahrer-list");
+
+@Route(layout = MainLayout.class)
+@PageTitle("Tour | Vaadin Pfenning")
+public class TourList extends VerticalLayout {
+    Grid<Tour> grid = new Grid<>(Tour.class);
+    TextField filterText = new TextField();
+    TourService tourService;
+    LkwService lkwService;
+    TourForm tourForm;
+
+    public TourList(TourService tourService,LkwService lkwService) {
+        this.tourService = tourService;
+        this.lkwService=lkwService;
+        addClassName("Tour-list");
         setSizeFull();
         configureGrid();
-        configureFahrerForm();
+        configureTourForm();
 
         //add(getToolbar(), grid);
         add(getToolbar(), getContent());
@@ -36,83 +47,87 @@ public class FahrerList extends VerticalLayout {
     }
 
     private Component getContent() {
-        HorizontalLayout content = new HorizontalLayout(grid,fahrerForm);
+        HorizontalLayout content = new HorizontalLayout(grid, tourForm);
         content.setFlexGrow(2, grid);
-        content.setFlexGrow(1, fahrerForm);
+        content.setFlexGrow(1, tourForm);
         content.addClassNames("content");
         content.setSizeFull();
         return content;
     }
 
     private void configureGrid() {
-        grid.addClassNames("fahrer-grid");
+        grid.addClassNames("tour-grid");
         grid.setSizeFull();
-        grid.setColumns("id", "id_pf", "id_rewe", "name", "vorname","sprache");
+        grid.setColumns("id", "abfahrtlager", "ankunftlager", "lkw_kenz", "tour_kilometer", "tour_nr");
+
         //grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
         //grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->
-                editFahrer(event.getValue()));
+                editTour(event.getValue()));
     }
 
     private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Filter by name...");
+        filterText.setPlaceholder("Filter by tour nr...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
-        Button addFahrer = new Button("Add Fahrer");
-        addFahrer.addClickListener(click -> addFahrer());
-        Button deleteFahrer = new Button("Delete Fahrer");
-        Button updateFahrer = new Button("Update Fahrer");
+        Button addTour = new Button("Add Tour");
+        addTour.addClickListener(click -> addTour());
+        Button deleteTour = new Button("Delete Tour");
+        Button updateTour = new Button("Update Tour");
 
-        HorizontalLayout toolbar = new HorizontalLayout(filterText, addFahrer,
-                deleteFahrer, updateFahrer);
+        HorizontalLayout toolbar = new HorizontalLayout(filterText, addTour,
+                deleteTour, updateTour);
         toolbar.addClassName("toolbar");
         return toolbar;
     }
-    public void editFahrer(Fahrer fahrer) {
-        if (fahrer == null) {
+
+    public void editTour(Tour tour) {
+        if (tour == null) {
             closeEditor();
         } else {
-            fahrerForm.setFahrer(fahrer);
-            fahrerForm.setVisible(true);
+            tourForm.setTour(tour);
+            tourForm.setVisible(true);
             addClassName("editing");
         }
     }
 
     private void closeEditor() {
-        fahrerForm.setFahrer(null);
-        fahrerForm.setVisible(false);
+        tourForm.setTour(null);
+        tourForm.setVisible(false);
         removeClassName("editing");
     }
 
-    private void addFahrer() {
+    private void addTour() {
         grid.asSingleSelect().clear();
-        editFahrer(new Fahrer());
+        editTour(new Tour());
     }
 
     private void updateList() {
-        grid.setItems(fahrerService.getAllFahrers(filterText.getValue()));
+        grid.setItems(tourService.findAllToursByTourNr(filterText.getValue()));
     }
 
-    private void configureFahrerForm() {
-        fahrerForm = new FahrerForm();
-        fahrerForm.setWidth("25em");
-        fahrerForm.addListener(FahrerForm.SaveEvent.class, this::saveFahrer);
-        fahrerForm.addListener(FahrerForm.DeleteEvent.class, this::deleteFahrer);
-        fahrerForm.addListener(FahrerForm.CloseEvent.class, e -> closeEditor());
+    private void configureTourForm() {
+
+        tourForm = new TourForm(lkwService.findAllLkw());
+        tourForm.setWidth("25em");
+        tourForm.addListener(TourForm.SaveEvent.class, this::saveTour);
+        tourForm.addListener(TourForm.DeleteEvent.class, this::deleteTour);
+        tourForm.addListener(TourForm.CloseEvent.class, e -> closeEditor());
     }
 
-    private void saveFahrer(FahrerForm.SaveEvent event) {
-        fahrerService.addFahrer(event.getFahrer());
+    private void saveTour(TourForm.SaveEvent event) {
+        tourService.addTour(event.getTour());
         updateList();
         closeEditor();
     }
 
-    private void deleteFahrer(FahrerForm.DeleteEvent event) {
-        fahrerService.deleteFahrer(event.getFahrer());
+    private void deleteTour(TourForm.DeleteEvent event) {
+        tourService.deleteTour(event.getTour());
         updateList();
         closeEditor();
-    }*/
+    }
+}

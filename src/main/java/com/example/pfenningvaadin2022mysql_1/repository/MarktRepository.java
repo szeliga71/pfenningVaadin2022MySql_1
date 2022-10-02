@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MarktRepository extends JpaRepository<Markt,Long> {
+public interface MarktRepository extends JpaRepository<Markt,String> {
 
     @Query("select m from Markt m " +
             "where lower(m.id) like lower(concat('%', :searchTerm, '%')) " )

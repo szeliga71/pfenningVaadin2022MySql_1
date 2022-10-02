@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+//@RestController
 @RequiredArgsConstructor
 @RequestMapping("/pfenning2022")
 public class FahrerController {
@@ -17,7 +17,7 @@ public class FahrerController {
     private final FahrerService fahrerService;
 
 
-    @GetMapping("")
+   @GetMapping("")
     public List<Fahrer> getAllFahrer() {
         return fahrerService.getAllFahrer();
     }
@@ -27,11 +27,11 @@ public class FahrerController {
         return fahrerService.getFahrerByName(name);
     }*/
 
-    @GetMapping("{id}")
-    public Fahrer getFahrerByIdPf(@PathVariable long id) {
-        return fahrerService.getFahrerById(id);
+   /* @GetMapping("{id}")
+    public Fahrer getFahrerByIdPf(@PathVariable String name) {
+        return fahrerService.getFahrerById(name);*/
 
-    }
+
 
 /*@PostMapping("add")
     public Fahrer addFahrer(@RequestBody Fahrer fahrer){
@@ -45,9 +45,9 @@ public class FahrerController {
 
     }*/
 
-    @DeleteMapping("deleteFahrer/{id}")
-    public void deleteFahrerById(@PathVariable long id){
+   /* @DeleteMapping("deleteFahrer/{id}")
+    public void deleteFahrerById(@PathVariable String id){
         fahrerService.deleteFahrerById(id);
-    }
+    }*/
 
 }

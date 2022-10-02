@@ -46,7 +46,7 @@ public class FahrerList extends VerticalLayout {
     private void configureGrid() {
         grid.addClassNames("fahrer-grid");
         grid.setSizeFull();
-        grid.setColumns("id", "id_pf", "id_rewe", "name", "vorname","sprache");
+        grid.setColumns("name","vorname","id_pf", "id_rewe","sprache");
         //grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
         //grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));

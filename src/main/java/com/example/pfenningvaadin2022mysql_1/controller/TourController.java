@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+//@RestController
 @RequiredArgsConstructor
 @RequestMapping("/pfenning2022")
 public class TourController {
@@ -17,8 +17,8 @@ public class TourController {
 
     private final TourService tourService;
 
-    @GetMapping("tours")
+  /*  @GetMapping("tours")
     public List<Tour> findAllTours() {
         return tourService.findAllTours();
-    }
+    }*/
 }

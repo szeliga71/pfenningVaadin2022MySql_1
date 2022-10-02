@@ -1,6 +1,8 @@
 package com.example.pfenningvaadin2022mysql_1.Vaadin;
 
 import com.example.pfenningvaadin2022mysql_1.model.Fahrer;
+import com.example.pfenningvaadin2022mysql_1.model.Lkw;
+import com.example.pfenningvaadin2022mysql_1.model.Stopp;
 import com.example.pfenningvaadin2022mysql_1.model.Tour;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
@@ -8,25 +10,36 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.List;
+
 
 public class TourForm extends FormLayout {
 
 
-   /* private Tour tour;
+    private Tour tour;
 
-    TextField id_pf = new TextField("Personalnummer");
-    TextField id_rewe = new TextField("Rewe Nummer");
-    TextField name = new TextField("Name");
-    TextField vorname = new TextField("Vorname");
-    TextField sprache = new TextField("Sprache");
+    ComboBox<Lkw> lkw_kenz =new ComboBox("lkw");
+    TextField id = new TextField("id");
+    TimePicker abfahrtlager = new TimePicker();//("abfahrtlager");
+    TimePicker ankunftlager = new TimePicker();//("ankunftlager");
+    //TextField lkw_kenz = new TextField("lkw_kenz");
+    TextField tour_kilometer = new TextField("tour_kilometer");
+    TextField tour_nr = new TextField("tour_nr");
 
     //ComboBox<Status> status = new ComboBox<>("Status");
     //ComboBox<Company> company = new ComboBox<>("Company");
@@ -37,11 +50,18 @@ public class TourForm extends FormLayout {
     Button edit = new Button("Edit");
 
 
-    Binder<Fahrer> binder = new BeanValidationBinder<>(Fahrer.class);
+    Binder<Tour> binder = new BeanValidationBinder<>(Tour.class);
 
-    public FahrerForm() {
-        addClassName("fahrer-form");
+    public TourForm(List<Lkw>lkwList) {
+        addClassName("tour-form");
         binder.bindInstanceFields(this);
+
+        abfahrtlager.setLabel("abfahrtlager");
+        abfahrtlager.setStep(Duration.ofMinutes(15));
+        ankunftlager.setLabel("abfahrtlager");
+        ankunftlager.setStep(Duration.ofMinutes(15));
+        lkw_kenz.setItems(lkwList);
+        lkw_kenz.setItemLabelGenerator(Lkw::getKenz);
 
 
         //company.setItems(companies);
@@ -49,19 +69,20 @@ public class TourForm extends FormLayout {
         //status.setItems(statuses);
         //status.setItemLabelGenerator(Status::getName);
 
-        add(id_pf,
-                id_rewe,
-                name,
-                vorname,
-                sprache,
+        add(id,
+        abfahrtlager,
+        ankunftlager,
+        lkw_kenz,
+        tour_kilometer,
+        tour_nr,
                 createButtonsLayout());
         //configureFahrerForm();
     }
 
 
-    public void setFahrer(Fahrer fahrer) {
-        this.fahrer = fahrer;
-        binder.readBean(fahrer);
+    public void setTour(Tour tour) {
+        this.tour = tour;
+        binder.readBean(tour);
     }
 
     // private HorizontalLayout createButtonsLayout()
@@ -75,7 +96,7 @@ public class TourForm extends FormLayout {
         close.addClickShortcut(Key.ESCAPE);
 
         save.addClickListener(event -> validateAndSave());
-        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, fahrer)));
+        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, tour)));
         close.addClickListener(event -> fireEvent(new CloseEvent(this)));
 //edit
         binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
@@ -85,50 +106,50 @@ public class TourForm extends FormLayout {
 
     private void validateAndSave() {
         try {
-            binder.writeBean(fahrer);
-            fireEvent(new SaveEvent(this, fahrer));
+            binder.writeBean(tour);
+            fireEvent(new SaveEvent(this, tour));
         } catch (ValidationException e) {
             e.printStackTrace();
         }
     }
 
 
-        /*private void configureFahrerForm () {
-            fahrerForm = new FahrerForm();
+       /* private void configureTourForm () {
+            tourForm = new TourForm();
             setWidth("25em");
 
-        }
+        }*/
 
     //==========================================
 
-    public static abstract class FahrerFormEvent extends ComponentEvent<FahrerForm> {
-        private Fahrer fahrer;
+    public static abstract class TourFormEvent extends ComponentEvent<TourForm> {
+        private Tour tour;
 
-        protected FahrerFormEvent(FahrerForm source, Fahrer fahrer) {
+        protected TourFormEvent(TourForm source, Tour tour) {
             super(source, false);
-            this.fahrer = fahrer;
+            this.tour = tour;
         }
 
-        public Fahrer getFahrer() {
-            return fahrer;
-        }
-    }
-
-    public static class SaveEvent extends FahrerFormEvent {
-        SaveEvent(FahrerForm source, Fahrer fahrer) {
-            super(source, fahrer);
+        public Tour getTour() {
+            return tour;
         }
     }
 
-    public static class DeleteEvent extends FahrerFormEvent {
-        DeleteEvent(FahrerForm source, Fahrer fahrer) {
-            super(source, fahrer);
+    public static class SaveEvent extends TourFormEvent {
+        SaveEvent(TourForm source, Tour tour) {
+            super(source, tour);
+        }
+    }
+
+    public static class DeleteEvent extends TourFormEvent {
+        DeleteEvent(TourForm source, Tour tour) {
+            super(source, tour);
         }
 
     }
 
-    public static class CloseEvent extends FahrerFormEvent {
-        CloseEvent(FahrerForm source) {
+    public static class CloseEvent extends TourFormEvent {
+        CloseEvent(TourForm source) {
             super(source, null);
         }
     }
@@ -136,5 +157,5 @@ public class TourForm extends FormLayout {
     public <T extends ComponentEvent<?>> Registration addListener (Class < T > eventType,
                                                                    ComponentEventListener< T > listener){
         return getEventBus().addListener(eventType, listener);
-    }*/
+    }
 }

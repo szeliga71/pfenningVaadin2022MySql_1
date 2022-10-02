@@ -27,14 +27,11 @@ public class FahrerService {
             return fahrerRepository.search(stringFilter);
         }
     }
-    public Fahrer getFahrerById(long id) {
-        return fahrerRepository.findById(id).orElseThrow(); //OPTIONAL
+    public Fahrer getFahrerById(String id) {
+       return fahrerRepository.findById(id).orElseThrow(); //OPTIONAL
     }
 
-   /* public List<Fahrer> getFahrerByName(String name) {
 
-        return fahrerRepository.findByName(name);
-    }*/
 
     public void addFahrer(Fahrer fahrer) {
         if (fahrer == null) {
@@ -45,12 +42,9 @@ public class FahrerService {
 
     }
 
-   /*public List<Fahrer> getFahrerByIdPf(String id_pf) {
 
-       return fahrerRepository.findByid_pf(id_pf);
-    }*/
 
-    public void deleteFahrerById(long id) {
+   public void deleteFahrerById(String id) {
         fahrerRepository.deleteById(id);
 
     }

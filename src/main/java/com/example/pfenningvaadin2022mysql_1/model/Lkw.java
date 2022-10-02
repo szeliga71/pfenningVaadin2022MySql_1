@@ -15,6 +15,10 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 public class Lkw {
+    @Override
+    public String toString() {
+        return kenz ;
+    }
 
     @Id
     private String kenz;

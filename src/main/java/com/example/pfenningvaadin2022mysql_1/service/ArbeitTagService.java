@@ -15,29 +15,37 @@ public class ArbeitTagService {
 
     private final ArebeitTagRepository arbeitTagRepository;
 
-    public List<ArbeitTag>findAllArbeitTaggs(){
+    public List<ArbeitTag> findAllArbeitTaggs() {
         return arbeitTagRepository.findAll();
     }
 
 
+    public List<ArbeitTag> findArbeitTagesByDate(LocalDate dateStart, LocalDate dateStop, String name) {
 
+        if (name == null || name.isEmpty()) {
+            return arbeitTagRepository.betwe(dateStart, dateStop);
+        } else {
 
-    public List<ArbeitTag> findArbeitTagesByDate(LocalDate dateStart,LocalDate dateStop) {
+            return arbeitTagRepository.betweName(dateStart, dateStop, name);
 
-
-
-     /*   if (dateStart==null   ||  dateStop==null ){
-        //((dateStart == null || dateStart.isEmpty)  &&  (dateStop == null || dateStop.isEmpty())) {
-            return arbeitTagRepository.findAll();
-        } else {*/
-            return arbeitTagRepository.betwe(dateStart,dateStop);
-
-        //return arbeitTagRepository.findAll();
-        //}
+        }
     }
+
+    public List<ArbeitTag> findArbeitTagesByName(LocalDate dateStart, LocalDate dateStop, String name) {
+
+        if (name == null || name.isEmpty()) {
+
+            return arbeitTagRepository.betwe(dateStart, dateStop);
+        } else {
+
+            return arbeitTagRepository.betweName(dateStart, dateStop, name);
+        }
+    }
+
+
     public void addArbeitTag(ArbeitTag arbeitTag) {
         if (arbeitTag == null) {
-            System.err.println("Fahrer is null. Are you sure you have connected your form to the application?");
+            System.err.println("Arbeit Tag is null. Are you sure you have connected your form to the application?");
             return;
         }
         arbeitTagRepository.save(arbeitTag);
@@ -49,27 +57,12 @@ public class ArbeitTagService {
 
     }
 
-   /* public List<ArbeitTag> fFF(Long fahrer_id){
-           if (name == null || name.isEmpty()) {
-        return arbeitTagRepository.findAll();
-    } else {
-       // return arbeitTagRepository.search(name);
 
-        return arbeitTagRepository.findById(fahrer_id);
+
+    public ArbeitTag getArbeitTagById(long id) {
+
+       return arbeitTagRepository.
+               findById(id).orElseThrow();
     }
-    }*/
-
-   /* public List<ArbeitTag> findAllArbeitTagesByFaherName(String name,String dateStart,String dateStop) {
-        if(name.equals("Zachariew")){
-            return arbeitTagRepository.findAllArbeitTagesByFaherName(1);
-        }
-        else
-            return arbeitTagRepository.betwe(dateStart,dateStop);
-    }*/
-
-
-
-    /*public List<ArbeitTag> findAllArbeitTagesByDate(LocalDateTime data) {
-        return arbeitTagRepository.findArbeitTagesByDate(data);
-    }*/
 }
+

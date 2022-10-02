@@ -7,12 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -27,19 +30,20 @@ public class ArbeitTag  {
     private long Id;
 
 
-    @ManyToOne
-    @JoinColumn(name = "fahrer_id",updatable = false,insertable = false)
+   @ManyToOne//(fetch = FetchType.LAZY)
+   @JoinColumn(name = "fahrer.name")//,updatable = false,insertable = false)
     @NotNull
     @JsonIgnoreProperties({"arbeitTages"})
     private Fahrer fahrer_name;
-
-    private long fahrer_id;
+    /*@JoinTable(name="fahrer")
+    @NotNull
+   private String fahrer_name;*/
 
 
     private LocalDate arbeitbegin_date;
 
-    private String arbeitbegin_zeit;
-    private String arbeitende_zeit;
+    private LocalTime arbeitbegin_zeit;
+    private LocalTime arbeitende_zeit;
 
     private int kilometer;
     private int kilometer_rewe;
@@ -48,10 +52,14 @@ public class ArbeitTag  {
     private String pause;
 
 
-  @OneToMany  (cascade = CascadeType.ALL)
-    @JoinColumn(name="arbeit_tag_id",updatable = false,insertable = false)
-    private List<Tour> touren;
+ /* @OneToMany  (mappedBy="arbeit_tag_id")
+  //@JoinColumn(name="arbeit_tag_id",updatable = false,insertable = false)
+    private List<Tour> touren;*/
 
+    @OneToMany
+    @Nullable
+    @JoinColumn(name="arbeit_tag_id")
+    private List<Tour> touren;
 
 
 }

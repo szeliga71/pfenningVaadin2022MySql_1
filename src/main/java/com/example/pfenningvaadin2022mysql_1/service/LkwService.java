@@ -22,6 +22,10 @@ public class LkwService {
         }
     }
 
+    public List<Lkw>findAllLkw(){
+        return lkwRepository.findAll();
+    }
+
 
 
     public void addLkw(Lkw lkw) {

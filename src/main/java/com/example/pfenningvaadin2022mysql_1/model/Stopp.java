@@ -1,14 +1,13 @@
 package com.example.pfenningvaadin2022mysql_1.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -24,8 +23,22 @@ public class Stopp {
     private LocalTime ankunftstopp;
     private LocalTime abfahrtstopp;
     private String leergut;
-    private long id_markt;
-    //private long tour_id;
+
+
+
+
+  @ManyToOne//( fetch = FetchType.LAZY)
+   @JoinColumn(name = "markt.id")//"id_markt")//,updatable = false,insertable = false)
+   @NotNull
+   private Markt marktId;
+
+
+    @ManyToOne
+    @JoinColumn(name = "tour.id")
+    @NotNull
+    private Tour tourId;
+
+
     //==========================
     private int rollcontainer;
     private int pallette;
