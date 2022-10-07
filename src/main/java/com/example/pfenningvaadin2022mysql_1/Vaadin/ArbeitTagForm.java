@@ -44,7 +44,7 @@ public class ArbeitTagForm extends FormLayout {
     //TextField arbeitende_zeit = new TextField("arbeitende");
     TextField kilometer = new TextField("kilometer");
 
-    TextField kilometer_rewe = new TextField(" kilometer rewe");
+
     Select<String> fahrerbruch = new Select<>();//("fahrerbruch");
     Select<String> unfall = new Select<>();//("unfall");
     Select<String> pause = new Select<>();//("pause");
@@ -77,7 +77,7 @@ public class ArbeitTagForm extends FormLayout {
         arbeitende_zeit.setStep(Duration.ofMinutes(15));
         kilometer.setPlaceholder("kilometer");
 
-        kilometer_rewe.setPlaceholder("kilometer rewe");
+
         fahrerbruch.setLabel("fahrerbruch");
         fahrerbruch.setItems("nein","ja");
         fahrerbruch.setPlaceholder("fahrerbruch");
@@ -98,7 +98,7 @@ public class ArbeitTagForm extends FormLayout {
                 arbeitbegin_zeit,
                 arbeitende_zeit,
                 kilometer,
-                kilometer_rewe,
+
                 fahrerbruch,
                 unfall,
                 pause,

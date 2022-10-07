@@ -1,13 +1,21 @@
 package com.example.pfenningvaadin2022mysql_1.Vaadin;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+
+//@RolesAllowed({"ADMIN"})
 @PageTitle("Tlo")
+
 @Route(value ="",layout = MainLayout.class)
+
+@PermitAll
 public class Tlo extends VerticalLayout {
 
     public Tlo(){
@@ -25,6 +33,11 @@ public class Tlo extends VerticalLayout {
     setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
     setDefaultHorizontalComponentAlignment(FlexComponent.Alignment.CENTER);
     getStyle().set("text-align", "center");
+
+
 }
+
+
+
 }
 

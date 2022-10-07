@@ -44,6 +44,7 @@ public class Tour {
    /*@JoinTable(name="lkw")
    @NotNull
    private String lkw_kenz;*/
+    private int rewe_kilometer ;
     private int tour_kilometer;
     private String tour_nr;
 
@@ -52,7 +53,7 @@ public class Tour {
     private List<Stopp> stopps;*/
     @OneToMany(mappedBy="tourId")
     //@JoinColumn(name="tour_id")
-    @NotNull
+    //@NotNull
     private List<Stopp> stopps;
 
 

@@ -39,7 +39,6 @@ public interface ArebeitTagRepository extends JpaRepository<ArbeitTag,Long> {
 
     List<ArbeitTag> searchName(@Param("name")String name );
 
-
-
-
+@Query("select Id from ArbeitTag  ")
+   List <Long> getAllIds();
 }

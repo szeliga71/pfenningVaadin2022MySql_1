@@ -46,7 +46,7 @@ public class ArbeitTag  {
     private LocalTime arbeitende_zeit;
 
     private int kilometer;
-    private int kilometer_rewe;
+
     private String fahrerbruch;
     private String unfall;
     private String pause;
@@ -62,4 +62,8 @@ public class ArbeitTag  {
     private List<Tour> touren;
 
 
+    @Override
+    public String toString() {
+        return  ""+Id;
+    }
 }

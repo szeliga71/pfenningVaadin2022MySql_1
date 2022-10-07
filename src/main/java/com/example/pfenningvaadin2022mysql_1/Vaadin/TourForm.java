@@ -38,6 +38,7 @@ public class TourForm extends FormLayout {
     TimePicker abfahrtlager = new TimePicker();//("abfahrtlager");
     TimePicker ankunftlager = new TimePicker();//("ankunftlager");
     //TextField lkw_kenz = new TextField("lkw_kenz");
+    TextField rewe_kilometer = new TextField("rewe_kilometer");
     TextField tour_kilometer = new TextField("tour_kilometer");
     TextField tour_nr = new TextField("tour_nr");
 
@@ -58,7 +59,7 @@ public class TourForm extends FormLayout {
 
         abfahrtlager.setLabel("abfahrtlager");
         abfahrtlager.setStep(Duration.ofMinutes(15));
-        ankunftlager.setLabel("abfahrtlager");
+        ankunftlager.setLabel("ankunftlager");
         ankunftlager.setStep(Duration.ofMinutes(15));
         lkw_kenz.setItems(lkwList);
         lkw_kenz.setItemLabelGenerator(Lkw::getKenz);
@@ -73,6 +74,7 @@ public class TourForm extends FormLayout {
         abfahrtlager,
         ankunftlager,
         lkw_kenz,
+        rewe_kilometer,
         tour_kilometer,
         tour_nr,
                 createButtonsLayout());

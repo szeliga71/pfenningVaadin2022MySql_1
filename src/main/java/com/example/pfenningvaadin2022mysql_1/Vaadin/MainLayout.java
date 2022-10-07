@@ -1,9 +1,9 @@
 package com.example.pfenningvaadin2022mysql_1.Vaadin;
 
+import com.example.pfenningvaadin2022mysql_1.security.SecurityService;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -11,24 +11,37 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 
+import javax.annotation.security.RolesAllowed;
+
+@RolesAllowed("ADMIN")
 public class MainLayout extends AppLayout {
 
 
-    //private final SecurityService securityService;
+    private final SecurityService securityService;
 
-    //public MainLayout(SecurityService securityService) {
+    public MainLayout(SecurityService securityService) {
+this.securityService=securityService;
 
-    //this.securityService = securityService;
-    // createHeader();
-    //createDrawer();
-    // }
+        //H1 logo = new H1("Vaadin CRM");
+        //logo.addClassName("logo");
+        //HorizontalLayout header;
+        //if (securityService.getAuthenticatedUser() != null) {
+          //  Button logout = new Button("Logout", click ->
+            //        securityService.logout());
+            //header = new HorizontalLayout(logo, logout);
+        //} else {
+          //  header = new HorizontalLayout(logo);
+        //}
 
-    public MainLayout(){
+        // Other page components omitted.
 
-
+        //addToNavbar(header);
 
         createHeader();
+
+
         createDrawer();
+
     }
 
     private void createHeader() {
@@ -43,7 +56,7 @@ public class MainLayout extends AppLayout {
         logo.addClassNames("text-l", "m-m");
 
 
-        Button logout = new Button("Log out");//, e -> securityService.logout());
+        Button logout = new Button("Log out", e -> securityService.logout());
 
         HorizontalLayout header = new HorizontalLayout(
                 new DrawerToggle(),

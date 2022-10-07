@@ -16,6 +16,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.JoinTable;
 import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
@@ -24,6 +25,7 @@ import java.time.LocalTime;
 
     @Route(layout = MainLayout.class)
     @PageTitle("Stopp | Vaadin Pfenning")
+    @RolesAllowed("ADMIN")
     public class StoppList extends VerticalLayout {
         Grid<Stopp> grid = new Grid<>(Stopp.class);
         TextField filterText = new TextField();

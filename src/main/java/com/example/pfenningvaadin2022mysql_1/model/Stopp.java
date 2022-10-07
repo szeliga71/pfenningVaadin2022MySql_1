@@ -28,13 +28,15 @@ public class Stopp {
 
 
   @ManyToOne//( fetch = FetchType.LAZY)
-   @JoinColumn(name = "markt.id")//"id_markt")//,updatable = false,insertable = false)
+   @JoinColumn(name = "Markt_id")//,updatable = false,insertable = false)
+  @JsonIgnoreProperties({"stopps"})
    @NotNull
    private Markt marktId;
 
 
     @ManyToOne
-    @JoinColumn(name = "tour.id")
+    @JoinColumn(name = "Tour_id")//,updatable = false,insertable = false)
+    @JsonIgnoreProperties({"stopps"})
     @NotNull
     private Tour tourId;
 

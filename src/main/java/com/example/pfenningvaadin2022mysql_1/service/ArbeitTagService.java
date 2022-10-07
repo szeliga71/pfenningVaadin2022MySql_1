@@ -64,5 +64,9 @@ public class ArbeitTagService {
        return arbeitTagRepository.
                findById(id).orElseThrow();
     }
+
+    public List<Long> getAllIds() {
+        return arbeitTagRepository.getAllIds();
+    }
 }
 

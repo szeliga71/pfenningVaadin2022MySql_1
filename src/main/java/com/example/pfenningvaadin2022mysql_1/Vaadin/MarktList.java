@@ -14,8 +14,11 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import javax.annotation.security.RolesAllowed;
+
 @Route(layout = MainLayout.class)
 @PageTitle("Markt | Vaadin Pfenning")
+@RolesAllowed("ADMIN")
 public class MarktList extends VerticalLayout {
     Grid<Markt> grid = new Grid<>(Markt.class);
     TextField filterText = new TextField();

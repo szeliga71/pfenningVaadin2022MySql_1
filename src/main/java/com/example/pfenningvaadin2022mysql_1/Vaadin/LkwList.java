@@ -14,8 +14,11 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import javax.annotation.security.RolesAllowed;
+
 @Route(layout = MainLayout.class)
 @PageTitle("Lkw | Vaadin Pfenning")
+@RolesAllowed("ADMIN")
 public class LkwList extends VerticalLayout {
     Grid<Lkw> grid = new Grid<>(Lkw.class);
     TextField filterText = new TextField();

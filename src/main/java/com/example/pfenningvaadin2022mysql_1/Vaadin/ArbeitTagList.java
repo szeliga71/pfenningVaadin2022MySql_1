@@ -19,6 +19,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.security.RolesAllowed;
 import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 
 @Route(layout = MainLayout.class)
 @PageTitle("Arbeit Tag List | Vaadin Pfenning")
+@RolesAllowed("ADMIN")
 public class ArbeitTagList extends VerticalLayout {
 
 
@@ -88,7 +90,7 @@ public class ArbeitTagList extends VerticalLayout {
         grid.addClassNames("arbeitTag-grid");
         grid.setSizeFull();
 
-        grid.setColumns("fahrer_name","arbeitbegin_date","arbeitbegin_zeit","arbeitende_zeit","kilometer","kilometer_rewe","fahrerbruch","unfall","pause");
+        grid.setColumns("fahrer_name","arbeitbegin_date","arbeitbegin_zeit","arbeitende_zeit","kilometer","fahrerbruch","unfall","pause");
 
 
 

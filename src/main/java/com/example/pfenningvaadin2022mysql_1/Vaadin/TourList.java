@@ -16,6 +16,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @Route(layout = MainLayout.class)
 @PageTitle("Tour | Vaadin Pfenning")
+@RolesAllowed("ADMIN")
 public class TourList extends VerticalLayout {
     Grid<Tour> grid = new Grid<>(Tour.class);
     TextField filterText = new TextField();
@@ -58,7 +60,7 @@ public class TourList extends VerticalLayout {
     private void configureGrid() {
         grid.addClassNames("tour-grid");
         grid.setSizeFull();
-        grid.setColumns("id", "abfahrtlager", "ankunftlager", "lkw_kenz", "tour_kilometer", "tour_nr");
+        grid.setColumns("id", "abfahrtlager", "ankunftlager", "lkw_kenz", "rewe_kilometer","tour_kilometer", "tour_nr");
 
         //grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
         //grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
